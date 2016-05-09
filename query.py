@@ -70,22 +70,49 @@ def get_brands_summary():
     '''Prints out each brand name, and each model name for that brand
      using only ONE database query.'''
 
+     #For each brand in the brand table, print the brand and loop through models 
+     #and print out all the models with that brand name.
+
+
     pass
 
 # -------------------------------------------------------------------
 # Part 2.5: Discussion Questions (Include your answers as comments.)
 
 # 1. What is the returned value and datatype of ``Brand.query.filter_by(name='Ford')``?
+    # The value returned would be the row "1 | Ford |    1903 | Dearborn, MI |  "
+    #The data type is an object.
 
 # 2. In your own words, what is an association table, and what *type* of relationship
 # does an association table manage?
+    #An association table handles many to many relationships. The association table
+    #contains only inofrmation that is contined in both tables in order to handle
+    #the many many aspect.
 
 # -------------------------------------------------------------------
 # Part 3
 
 def search_brands_by_name(mystr):
-    pass
+
+    brands_from_string = Brand.query.filter(Brand.name.like('%\mystr%')).all()
+
+    for brand in brands_from_string:
+        print brand.name
+
+    #This is not quite working, but I tried the query in interactive and it worked
+    #not quite sure. :(
 
 
 def get_models_between(start_year, end_year):
-    pass
+   
+    models_between = Model.query.filter((Model.year>start_year) & (Model.year<end_year))
+
+    for model in models_between:
+        return model.name
+
+    #I know that it said to return a list of objects, but I had a hard time seeing
+    #if I was return the correct thing, so I did it this way. 
+
+
+#My take away from this weeks skills assessment is that I need more practice and understanding
+#around putting SQLAlchemy queries into functions!
